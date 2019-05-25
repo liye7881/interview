@@ -1,4 +1,6 @@
 ### Interview answers
+It is using some lambda in the code, it will need Java 1.8 to execute.
+
 - Collections:
 
     gradle :merge:test
