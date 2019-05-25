@@ -28,8 +28,8 @@
     </c:forEach>
     <tr>
         <td colspan="3" align="right">
-            <a href="/subscribe/subscribe/user_service?page=${page - 1}">Pre</a>
-            <a href="/subscribe/subscribe/user_service?page=${page + 1}">Next</a>
+            <a href="/subscribe/subscribe/user-service?page=${page - 1}&user_id=${param.user_id}&service_id=${param.service_id}">Pre</a>
+            <a href="/subscribe/subscribe/user-service?page=${page + 1}&user_id=${param.user_id}&service_id=${param.service_id}">Next</a>
         </td>
     </tr>
 </table>

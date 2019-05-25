@@ -15,11 +15,10 @@ public class AbstractDao {
   }
 
   protected Connection getConnection(boolean autoCommit) throws SQLException {
-
     DataSource datasource = (DataSource) SubcribeContext.getContext().getRequest().getServletContext()
         .getAttribute(Constants.DATASOURCE);
 
-    Connection conn = datasource.getConnection()  ;
+    Connection conn = datasource.getConnection();
     conn.setAutoCommit(autoCommit);
 
     return conn;
