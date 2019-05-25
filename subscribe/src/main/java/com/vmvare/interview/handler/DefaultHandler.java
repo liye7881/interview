@@ -2,13 +2,7 @@ package com.vmvare.interview.handler;
 
 import com.vmvare.interview.Constants;
 import com.vmvare.interview.Utils;
-import com.vmvare.interview.bean.Service;
-import com.vmvare.interview.bean.User;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,32 +64,6 @@ public class DefaultHandler implements Handler {
 
   protected DataSource getDataSource(HttpServletRequest request) {
     return (DataSource) request.getServletContext().getAttribute(Constants.DATASOURCE);
-  }
-
-  protected List<User> getUsersFromResultSet(ResultSet set) throws SQLException {
-    List<User> users = new ArrayList<>();
-    while (set.next()) {
-      User user = new User();
-      user.setUserId(set.getInt(1));
-      user.setName(set.getString(2));
-      user.setVersion(set.getInt(3));
-
-      users.add(user);
-    }
-    return users;
-  }
-
-  protected List<Service> getServicesForResultSet(ResultSet set) throws SQLException {
-    List<Service> services = new ArrayList<>();
-    while (set.next()) {
-      Service service = new Service();
-      service.setServiceId(set.getInt(1));
-      service.setName(set.getString(2));
-      service.setVersion(set.getInt(3));
-
-      services.add(service);
-    }
-    return services;
   }
 
   private static class Inner {

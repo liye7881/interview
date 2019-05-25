@@ -26,20 +26,38 @@ public class DispatchServlet extends HttpServlet {
   }
 
   @Override
+  protected void service(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    SubcribeContext.setContext(new SubcribeContext(req, resp));
+    super.service(req, resp);
+    SubcribeContext.setContext(null);
+  }
+
+  @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    Handler handler = getHandler(req);
-    if (handler != null) {
-      handler.handleGet(req, resp);
+    try {
+      Handler handler = getHandler(req);
+      if (handler != null) {
+        handler.handleGet(req, resp);
+      }
+    } catch (SubscribeException e) {
+      req.setAttribute("msg", e.getMessage());
+      req.getRequestDispatcher("/error.jsp").forward(req, resp);
     }
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    Handler handler = getHandler(req);
-    if (handler != null) {
-      handler.handlePost(req, resp);
+    try {
+      Handler handler = getHandler(req);
+      if (handler != null) {
+        handler.handlePost(req, resp);
+      }
+    } catch (SubscribeException e) {
+      req.setAttribute("msg", e.getMessage());
+      req.getRequestDispatcher("/error.jsp").forward(req, resp);
     }
   }
 

@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
 public class MemQueue {
-  private static Logger LOGGER = Logger.getLogger(MemQueue.class.getName());
+  private static final int MAX_QUEUE_SIZE = Integer.getInteger("mem.queue.size", 1000);
 
   private Queue<String> queue = new LinkedList<>();
 
@@ -24,7 +24,7 @@ public class MemQueue {
     try {
       lock.lock();
 
-      while (queue.size() > 1000 && !closed) {
+      while (!closed && queue.size() >= MAX_QUEUE_SIZE) {
         write.await(1l, TimeUnit.MICROSECONDS);
       }
 
@@ -45,7 +45,7 @@ public class MemQueue {
     try {
       lock.lock();
 
-      while (queue.size() == 0 && !closed) {
+      while (!closed && queue.size() == 0) {
         read.await(1l, TimeUnit.MICROSECONDS);
       }
 
