@@ -1,5 +1,8 @@
 package com.vmvare.interview;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 public class Utils {
@@ -16,5 +19,16 @@ public class Utils {
       }
     }
     return ret;
+  }
+
+  public static Class[] getTargetInterfaces(Object target) {
+    List<Class> classes = new ArrayList<>();
+    Class<?> clz = target.getClass();
+    while (clz != null) {
+      Arrays.stream(clz.getInterfaces()).forEach(classes::add);
+      clz = clz.getSuperclass();
+    }
+
+    return classes.toArray(new Class[0]);
   }
 }

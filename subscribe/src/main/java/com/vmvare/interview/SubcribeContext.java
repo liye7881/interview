@@ -1,5 +1,6 @@
 package com.vmvare.interview;
 
+import com.vmvare.interview.handler.Handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,6 +9,7 @@ public class SubcribeContext {
 
   private HttpServletRequest request;
   private HttpServletResponse response;
+  private Handler handler;
 
   public SubcribeContext(HttpServletRequest request, HttpServletResponse response) {
     this.request = request;
@@ -28,5 +30,13 @@ public class SubcribeContext {
 
   public HttpServletResponse getResponse() {
     return response;
+  }
+
+  public void setHandler(Handler handler) {
+    this.handler = handler;
+  }
+
+  public Handler getHandler() {
+    return handler;
   }
 }

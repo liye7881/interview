@@ -37,7 +37,8 @@ public class DefaultHandler implements Handler {
     return oper;
   }
 
-  protected int getPageStart(HttpServletRequest request) {
+  @Override
+  public int getPageStart(HttpServletRequest request) {
     return getPage(request) * getPageSize();
   }
 
@@ -58,7 +59,8 @@ public class DefaultHandler implements Handler {
     return page;
   }
 
-  protected int getPageSize() {
+  @Override
+  public int getPageSize() {
     return 5;
   }
 

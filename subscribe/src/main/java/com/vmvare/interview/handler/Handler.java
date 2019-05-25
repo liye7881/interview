@@ -11,4 +11,8 @@ public interface Handler {
 
   void handlePost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException;
+
+  int getPageStart(HttpServletRequest request);
+
+  int getPageSize();
 }

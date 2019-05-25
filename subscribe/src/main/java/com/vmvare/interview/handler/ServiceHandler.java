@@ -25,7 +25,7 @@ public class ServiceHandler extends DefaultHandler {
 
   private void doList(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    request.setAttribute("services", serviceDao.getServices(getPageStart(request), getPageSize()));
+    request.setAttribute("services", serviceDao.getServices());
     request.getRequestDispatcher("/service.jsp").forward(request, response);
   }
 }

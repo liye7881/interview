@@ -39,9 +39,10 @@ public class DispatchServlet extends HttpServlet {
     try {
       Handler handler = getHandler(req);
       if (handler != null) {
+        SubcribeContext.getContext().setHandler(handler);
         handler.handleGet(req, resp);
       }
-    } catch (SubscribeException e) {
+    } catch (Exception e) {
       req.setAttribute("msg", e.getMessage());
       req.getRequestDispatcher("/error.jsp").forward(req, resp);
     }
@@ -53,9 +54,10 @@ public class DispatchServlet extends HttpServlet {
     try {
       Handler handler = getHandler(req);
       if (handler != null) {
+        SubcribeContext.getContext().setHandler(handler);
         handler.handlePost(req, resp);
       }
-    } catch (SubscribeException e) {
+    } catch (Exception e) {
       req.setAttribute("msg", e.getMessage());
       req.getRequestDispatcher("/error.jsp").forward(req, resp);
     }

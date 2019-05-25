@@ -1,6 +1,7 @@
 package com.vmvare.interview.listener;
 
 import com.vmvare.interview.Constants;
+import com.vmvare.interview.SubcribeProp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,14 +18,7 @@ public class InitDatabaseListener implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
-    Properties properties = new Properties();
-    try {
-      properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("database.properties"));
-      System.getProperties().forEach((key, value) -> {
-        properties.setProperty((String) key, (String) value);
-      });
-    } catch (IOException e) {
-    }
+    Properties properties = SubcribeProp.getINSTANCE().getProperties();
 
     BasicDataSource source = new BasicDataSource();
     source.setDriverClassName(properties.getProperty("driverClassName"));

@@ -15,17 +15,17 @@ public class UserServiceDao extends AbstractDao {
 
   private static final String USER_SQL = "select c.name, a.name, b.rela_id "
       + "from t_services a, t_user_service_rela b, t_users c "
-      + "where a.service_id = b.service_id and b.user_id = c.user_id and b.user_id = ? order by a.service_id desc limit ?, ?";
+      + "where a.service_id = b.service_id and b.user_id = c.user_id and b.user_id = ? order by a.service_id desc";
   private static final String SERVICE_SQL = "select a.name, c.name, b.rela_id "
       + "from t_users a, t_user_service_rela b, t_services c "
-      + "where a.user_id = b.user_id and b.service_id = c.service_id and b.service_id = ? order by c.service_id desc limit ?, ?";
+      + "where a.user_id = b.user_id and b.service_id = c.service_id and b.service_id = ? order by c.service_id desc";
 
-  public List<UserService> getUserServiceBelongToUser(int userId, int pageStart, int pageSize) {
-    return getUserService(USER_SQL, userId, pageStart, pageSize);
+  public List<UserService> getUserServiceBelongToUser(int userId) {
+    return getUserService(USER_SQL, userId);
   }
 
-  public List<UserService> getUserServiceBelongToService(int userId, int pageStart, int pageSize) {
-    return getUserService(SERVICE_SQL, userId, pageStart, pageSize);
+  public List<UserService> getUserServiceBelongToService(int userId) {
+    return getUserService(SERVICE_SQL, userId);
   }
 
   public void addUserServiceUnderUser(List<Integer> serviceIds, int userId) {
@@ -100,14 +100,12 @@ public class UserServiceDao extends AbstractDao {
     }
   }
 
-  private List<UserService> getUserService(String sql, int id, int pageStart, int pageSize) {
+  private List<UserService> getUserService(String sql, int id) {
     List<UserService> userServices = new ArrayList<>();
 
     try (Connection conn = getConnection()) {
       PreparedStatement ps = conn.prepareStatement(sql);
       ps.setInt(1, id);
-      ps.setInt(2, pageStart);
-      ps.setInt(3, pageSize);
 
       ResultSet set = ps.executeQuery();
 

@@ -50,18 +50,15 @@ public class OperUserServiceHandler extends DefaultHandler {
 
   private void doGetAdd(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    int pageStart = getPageStart(request);
-    int pageSize  = getPageSize();
-
     Integer userId    = Utils.getIntParams(request, "user_id");
     Integer serviceId = Utils.getIntParams(request, "service_id");
 
     if (userId != null) {
-      List<Service> services = serviceDao.getServiceNotBelongToUser(userId, pageStart, pageSize);
+      List<Service> services = serviceDao.getServiceNotBelongToUser(userId);
 
       request.setAttribute("services", services);
     } else if (serviceId != null){
-      List<User> users = userDao.getUserNotBelongToService(serviceId, pageStart, pageSize);
+      List<User> users = userDao.getUserNotBelongToService(serviceId);
       request.setAttribute("users", users);
     } else {
       forwardToDefault(request, response);

@@ -24,7 +24,7 @@ public class UserHandler extends DefaultHandler {
 
   private void doList(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    request.setAttribute("users", userDao.getUsers(getPageStart(request), getPageSize()));
+    request.setAttribute("users", userDao.getUsers());
 
     request.getRequestDispatcher("/user.jsp").forward(request, response);
   }

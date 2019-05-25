@@ -31,15 +31,12 @@ public class UserServiceHandler extends DefaultHandler {
     Integer userId    = Utils.getIntParams(request, "user_id");
     Integer serviceId = Utils.getIntParams(request, "service_id");
 
-    int pageStart = getPageStart(request);
-    int pageSize  = getPageSize();
-
     List<UserService> userServices = new ArrayList<>();
 
     if (userId != null) {
-      userServices.addAll(userServiceDao.getUserServiceBelongToUser(userId, pageStart, pageSize));
+      userServices.addAll(userServiceDao.getUserServiceBelongToUser(userId));
     } else if (serviceId != null) {
-      userServices.addAll(userServiceDao.getUserServiceBelongToService(serviceId, pageStart, pageSize));
+      userServices.addAll(userServiceDao.getUserServiceBelongToService(serviceId));
     } else {
       forwardToDefault(request, response);
       return;
