@@ -10,8 +10,8 @@ import java.util.List;
 
 public class UserDao extends AbstractDao {
   public static final String USER_NOT_BELONG_SERVICE_SQL = "select a.user_id, a.name, a.version from t_users a "
-      + "where not exists (select * from t_user_service_rela b where a.user_id = b.user_id and b.service_id = ?) o"
-      + "rder by a.user_id";
+      + "where not exists (select * from t_user_service_rela b where a.user_id = b.user_id and b.service_id = ?) "
+      + "order by a.user_id";
 
   public List<User> getUsers() {
     List<User> users = new ArrayList<>();
