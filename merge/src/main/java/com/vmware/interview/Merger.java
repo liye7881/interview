@@ -1,5 +1,7 @@
 package com.vmware.interview;
 
+import com.vmware.interview.unit.MergeUnit;
+import com.vmware.interview.unit.MergeUnitFactory;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -35,7 +37,7 @@ public class Merger {
 
     Comparable[] merged = new Comparable[mergedSize];
 
-    MergeUnit lowToHighUnit = new MergeUnit(latch);
+    MergeUnit lowToHighUnit = MergeUnitFactory.newInstance(asc, true, latch);
     lowToHighUnit.setOne(one);
     lowToHighUnit.setTwo(two);
     lowToHighUnit.setMerged(merged);
@@ -43,9 +45,8 @@ public class Merger {
     lowToHighUnit.setOtherIndex(highToLowIndex);
     lowToHighUnit.setOneIndex(0);
     lowToHighUnit.setTwoIndex(0);
-    lowToHighUnit.setLowToHigh(true);
 
-    MergeUnit highToLowUnit = new MergeUnit(latch);
+    MergeUnit highToLowUnit = MergeUnitFactory.newInstance(asc, false, latch);
     highToLowUnit.setOne(one);
     highToLowUnit.setTwo(two);
     highToLowUnit.setMerged(merged);
@@ -53,7 +54,6 @@ public class Merger {
     highToLowUnit.setOtherIndex(lowToHighIndex);
     highToLowUnit.setOneIndex(one.length - 1);
     highToLowUnit.setTwoIndex(two.length - 1);
-    highToLowUnit.setLowToHigh(false);
 
     Future<?> lowToHigh = executorService.submit(lowToHighUnit);
     Future<?> highToLow = executorService.submit(highToLowUnit);
